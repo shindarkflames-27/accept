@@ -1,0 +1,1171 @@
+/* =========================================================
+   3D CLAYMORPHISM PROPOSAL — SOFT CLAY AESTHETIC
+   Cute + Dreamy + Soft + 3D + Playful + Romantic
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+@font-face {
+  font-display: swap;
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://assets.codepen.io/16327/PPMori-SemiBold.woff') format('woff');
+}
+
+:root {
+  /* ── Brown + Pink Clay Palette ── */
+  --bg-gradient: linear-gradient(
+    160deg,
+    #fce4d8 0%,
+    #f8d8cc 25%,
+    #f0c8b8 50%,
+    #e8d0c0 75%,
+    #dcc8b8 100%
+  );
+
+  --primary: #c84060;
+  --primary-dark: #a83050;
+  --primary-light: #e87090;
+  --blush: #f5d0c0;
+  --baby-pink: #f0b8a8;
+  --cream: #fdf5ee;
+  --lavender: #e0d0c4;
+  --peach: #f8dcc8;
+  --white: #ffffff;
+
+  /* ── Text ── */
+  --text-dark: #3d2520;
+  --text-muted: #8a6050;
+  --text-light: #ffffff;
+
+  /* ── 3D Clay Shadows — brown-based ── */
+  --clay-shadow:
+    14px 14px 28px rgba(140, 80, 50, 0.22),
+    -12px -12px 24px rgba(255, 255, 255, 0.9),
+    inset 3px 3px 8px rgba(255, 255, 255, 0.85),
+    inset -3px -3px 8px rgba(180, 120, 80, 0.12);
+
+  --clay-shadow-deep:
+    18px 18px 36px rgba(130, 70, 45, 0.25),
+    -14px -14px 28px rgba(255, 255, 255, 0.92),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.9),
+    inset -4px -4px 10px rgba(170, 110, 70, 0.1);
+
+  /* ── Button Clay Shadows ── */
+  --btn-accept-shadow:
+    6px 6px 14px rgba(160, 50, 70, 0.35),
+    -4px -4px 10px rgba(248, 200, 190, 0.8),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 5px rgba(140, 20, 50, 0.18);
+
+  --btn-reject-shadow:
+    5px 5px 12px rgba(160, 110, 90, 0.22),
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(160, 110, 90, 0.12);
+
+  --btn-secondary-shadow:
+    5px 5px 12px rgba(160, 110, 90, 0.2),
+    -4px -4px 10px rgba(255, 255, 255, 0.88),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 5px rgba(160, 110, 90, 0.1);
+
+  /* ── Radii ── */
+  --r-sm: 18px;
+  --r-md: 28px;
+  --r-lg: 38px;
+  --r-xl: 48px;
+  --r-pill: 9999px;
+
+  /* ── Fonts ── */
+  --font-main: 'Quicksand', 'Nunito', 'Mori', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-romantic: 'Quicksand', 'Nunito', 'Mori', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  font-family: var(--font-main);
+  color: var(--text-dark);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* =========================================================
+   BACKGROUND — FLOATING 3D HEARTS + BUBBLES + SPARKLES
+   ========================================================= */
+
+.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Subtle depth-of-field blur glow floating behind the content */
+.bg-dof {
+  position: fixed;
+  top: -15%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  filter: blur(46px);
+  opacity: 0.75;
+}
+
+.bg-dof .blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  mix-blend-mode: screen;
+}
+
+.bg-dof .blob-1 { width: 46vw; height: 46vw; background: radial-gradient(circle, rgba(255,180,200,0.55), transparent 70%); top: -6%; left: -4%; animation: blobFloat1 16s ease-in-out infinite; }
+.bg-dof .blob-2 { width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255,220,190,0.5), transparent 70%); bottom: -6%; right: -4%; animation: blobFloat2 20s ease-in-out infinite; }
+.bg-dof .blob-3 { width: 30vw; height: 30vw; background: radial-gradient(circle, rgba(220,190,255,0.45), transparent 70%); top: 40%; left: 22%; animation: blobFloat1 24s ease-in-out infinite reverse; }
+
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4vw, -3vh) scale(1.1); }
+}
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-4vw, 3vh) scale(0.95); }
+}
+
+/* Floating 3D clay hearts */
+.floating-heart {
+  position: absolute;
+  font-size: var(--size, 22px);
+  opacity: var(--opacity, 0.45);
+  animation: floatUpward var(--duration, 10s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  filter: drop-shadow(0 4px 8px rgba(160, 80, 60, 0.25))
+          drop-shadow(0 1px 2px rgba(160, 80, 60, 0.15));
+  will-change: transform;
+}
+
+@keyframes floatUpward {
+  0% {
+    transform: translateY(105vh) translateX(0) rotate(0deg) scale(0.85);
+    opacity: 0;
+  }
+  10% { opacity: var(--opacity, 0.5); }
+  90% { opacity: var(--opacity, 0.5); }
+  100% {
+    transform: translateY(-12vh) translateX(var(--drift, 30px)) rotate(var(--rot, 25deg)) scale(1.05);
+    opacity: 0;
+  }
+}
+
+/* 3D clay bubbles */
+.clay-bubble {
+  position: absolute;
+  width: var(--size, 60px);
+  height: var(--size, 60px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, var(--color, #f0d0c0) 50%, var(--color-dark, #d8b8a0) 100%);
+  box-shadow:
+    6px 6px 14px rgba(140, 80, 55, 0.15),
+    -5px -5px 12px rgba(255, 255, 255, 0.85),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(160, 100, 70, 0.1);
+  opacity: var(--opacity, 0.3);
+  animation: bubbleFloat var(--duration, 12s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+@keyframes bubbleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  33% {
+    transform: translateY(var(--drift-y, -20px)) translateX(var(--drift-x, 10px)) scale(1.05);
+  }
+  66% {
+    transform: translateY(var(--drift-y2, 10px)) translateX(var(--drift-x2, -8px)) scale(0.97);
+  }
+}
+
+/* Sparkles */
+.sparkle-dot {
+  position: absolute;
+  width: var(--size, 5px);
+  height: var(--size, 5px);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 20%, rgba(255, 255, 255, 0.5) 60%, transparent 100%);
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  box-shadow: 0 0 6px #ffffff, 0 0 12px rgba(240, 180, 160, 0.4);
+  will-change: opacity;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.06; transform: scale(0.3); }
+  50% { opacity: 0.8; transform: scale(1.15); }
+}
+
+/* =========================================================
+   APP CONTAINER
+   ========================================================= */
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  position: relative;
+  z-index: 10;
+  perspective: 1000px;
+}
+
+/* =========================================================
+   PAGE TRANSITIONS — 3D SCALE ENTRANCE
+   ========================================================= */
+
+.page-transition-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   3D CLAY CARD — THE SIGNATURE COMPONENT
+   ========================================================= */
+
+.clay-card {
+  background: linear-gradient(155deg, #fdf8f2 0%, #faf0e8 40%, #f8ede4 70%, #fdf5ee 100%);
+  border: 3px solid rgba(255, 255, 255, 0.95);
+  border-radius: var(--r-xl);
+  box-shadow: var(--clay-shadow-deep);
+  padding: 38px 28px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  animation: clayCardEntrance 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+}
+
+/* Inner highlight — top-left glow on the clay surface */
+.clay-card::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: calc(var(--r-xl) - 3px);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.2) 35%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.clay-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes clayCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.92) rotateX(8deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.015) rotateX(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+/* =========================================================
+   CLAY INSET / PILL VARIANTS
+   ========================================================= */
+
+/* =========================================================
+   3D CLAY SPEECH BUBBLES
+   ========================================================= */
+
+.talk-bubbles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 0 4px 0;
+  position: relative;
+}
+
+.talk-bubble {
+  position: relative;
+  background: linear-gradient(155deg, #ffffff 0%, #fdf0ea 100%);
+  border: 2.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px 20px 20px 6px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  box-shadow:
+    5px 5px 12px rgba(140, 85, 60, 0.16),
+    -4px -4px 10px rgba(255, 255, 255, 0.92),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(170, 110, 80, 0.08);
+  animation: bubbleBob 3s ease-in-out infinite;
+}
+
+.talk-bubble-alt {
+  align-self: flex-end;
+  border-radius: 20px 20px 6px 20px;
+  background: linear-gradient(155deg, #ffe0ea 0%, #f6c3d4 100%);
+  color: var(--primary-dark);
+  animation-delay: 0.8s;
+}
+
+.talk-bubble:nth-child(3) { align-self: center; animation-delay: 1.6s; }
+
+@keyframes bubbleBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(-1deg); }
+}
+
+.clay-inset {
+  background: linear-gradient(145deg, #fdf8f2 0%, #f8ede4 100%);
+  border-radius: var(--r-md);
+  box-shadow:
+    inset 4px 4px 10px rgba(255, 255, 255, 0.9),
+    inset -4px -4px 10px rgba(180, 120, 80, 0.12),
+    3px 3px 8px rgba(140, 85, 55, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.clay-inset-small {
+  background: linear-gradient(145deg, #fdf5ee 0%, #f5e0d0 100%);
+  border-radius: var(--r-pill);
+  box-shadow:
+    inset 3px 3px 7px rgba(255, 255, 255, 0.9),
+    inset -3px -3px 7px rgba(170, 110, 75, 0.1),
+    2px 2px 6px rgba(140, 85, 55, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.text-reveal-container {
+  display: block;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  margin-bottom: 12px;
+}
+
+.text-reveal-container .char {
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.title-emoji {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  display: inline-block;
+  animation: heartPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 5px 10px rgba(180, 60, 80, 0.25));
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.18); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}
+
+.card-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.card-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+/* Handwritten romantic accent heading */
+.title-romantic {
+  font-family: var(--font-romantic);
+  color: var(--primary-dark);
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.9), 0 2px 10px rgba(200, 90, 120, 0.18);
+}
+
+.reaction-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 16px;
+  min-height: 24px;
+  animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.7) translateY(-6px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* =========================================================
+   3D CLAY BUTTONS — CHUNKY + TACTILE
+   ========================================================= */.btn {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 15px 30px;
+  border-radius: var(--r-pill);
+  border: 2.5px solid rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  outline: none;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease,
+    background 0.25s ease;
+  /* 3D clay appearance */
+  transform: translateY(0);
+}
+
+.btn:active {
+  transform: translateY(4px) scale(0.96) !important;
+  box-shadow:
+    2px 2px 6px rgba(140, 70, 50, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.7),
+    inset 3px 3px 8px rgba(160, 80, 60, 0.15),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.8) !important;
+  transition-duration: 0.06s;
+}
+
+/* Accept — pink clay */
+.btn-accept {
+  background: linear-gradient(155deg, #e07890 0%, #c84060 60%, #a83050 100%);
+  color: var(--text-light);
+  box-shadow: var(--btn-accept-shadow);
+  text-shadow: 0 1px 2px rgba(120, 15, 40, 0.3);
+}
+
+.btn-accept:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    8px 8px 18px rgba(150, 40, 60, 0.4),
+    -5px -5px 14px rgba(240, 200, 190, 0.85),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 6px rgba(130, 10, 40, 0.2);
+}
+
+/* Reject — white clay */
+.btn-reject {
+  background: linear-gradient(155deg, #ffffff 0%, #faf0e8 100%);
+  color: var(--text-muted);
+  box-shadow: var(--btn-reject-shadow);
+}
+
+.btn-reject:hover {
+  background: linear-gradient(155deg, #ffffff 0%, #f5e0d0 100%);
+  color: var(--primary-dark);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Secondary — soft clay */
+.btn-secondary {
+  background: linear-gradient(155deg, #ffffff 0%, #faf0ea 100%);
+  color: var(--primary);
+  box-shadow: var(--btn-secondary-shadow);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    7px 7px 16px rgba(150, 90, 65, 0.22),
+    -5px -5px 12px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(150, 95, 65, 0.12);
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px 0;
+  position: relative;
+  min-height: 56px;
+  flex-wrap: wrap;
+}
+
+/* Social share buttons (WhatsApp / Instagram / Snapchat) */
+.social-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+}
+
+.social-btns .btn {
+  min-width: 170px;
+}
+
+.share-status {
+  color: #a83050;
+  line-height: 1.5;
+  padding: 0 6px;
+}
+
+/* Social media toggle button */
+.btn-social {
+  background: linear-gradient(155deg, #f3c5de 0%, #e895c0 50%, #c96fae 100%);
+  color: #6a1f43;
+}
+
+/* =========================================================
+   PAGE 1 — PROPOSAL (RUNAWAY REJECT)
+   ========================================================= */
+
+.proposal-card {
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.reject-escaped-fullscreen {
+  position: fixed !important;
+  transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  z-index: 9999 !important;
+  box-shadow: var(--btn-reject-shadow) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+@keyframes runawayPop {
+  0% { transform: scale(0.82); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* =========================================================
+   TEDDY BEAR — CLAY STYLE + GLOW
+   ========================================================= */
+
+.teddy-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  pointer-events: none;
+  position: relative;
+}
+
+/* Soft clay glow beneath teddy */
+.teddy-container::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 14px;
+  background: radial-gradient(ellipse, rgba(200, 140, 110, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: teddyGlowPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes teddyGlowPulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+  50% { opacity: 1; transform: translateX(-50%) scaleX(1.12); }
+}
+
+.teddy-svg {
+  width: 115px;
+  height: 115px;
+  animation: teddyFloat 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 6px 12px rgba(140, 80, 55, 0.2));
+}
+
+.teddy-svg.sad { animation: teddySad 3.2s ease-in-out infinite; }
+.teddy-svg.happy { animation: teddyHappy 1.3s ease-in-out infinite; }
+
+@keyframes teddyFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+@keyframes teddySad {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(3px) rotate(1.5deg); }
+}
+
+@keyframes teddyHappy {
+  0%, 100% { transform: translateY(0) scale(1) rotate(-2deg); }
+  25% { transform: translateY(-10px) scale(1.04) rotate(0deg); }
+  50% { transform: translateY(0) scale(1) rotate(2deg); }
+  75% { transform: translateY(-10px) scale(1.04) rotate(0deg); }
+}
+
+/* =========================================================
+   LOVE LETTER — CLAY PAPER
+   ========================================================= */
+
+.letter-card-container {
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.letter-scroll-area {
+  overflow-y: auto;
+  padding: 4px 6px;
+  max-height: calc(88vh - 120px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(180, 130, 100, 0.4) transparent;
+}
+
+.letter-scroll-area::-webkit-scrollbar { width: 5px; }
+.letter-scroll-area::-webkit-scrollbar-track { background: transparent; }
+.letter-scroll-area::-webkit-scrollbar-thumb {
+  background-color: rgba(180, 130, 100, 0.4);
+  border-radius: 10px;
+}
+
+.letter-paper {
+  padding: 28px 24px;
+  position: relative;
+  text-align: left;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 28px,
+    rgba(210, 175, 155, 0.3) 28px,
+    rgba(210, 175, 155, 0.3) 29px
+  );
+  margin-bottom: 18px;
+}
+
+.letter-stamp {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 2rem;
+  transform: rotate(12deg);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.08));
+}
+
+.letter-header {
+  font-family: var(--font-romantic);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 14px;
+  padding-right: 40px;
+  line-height: 1.25;
+}
+
+.letter-body {
+  font-family: var(--font-romantic);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #4a2a20;
+  font-weight: 600;
+}
+
+.letter-body p { margin-bottom: 12px; }
+
+.letter-signature {
+  font-family: var(--font-romantic);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 16px;
+  text-align: right;
+}
+
+/* =========================================================
+   ACTIVITY SELECTION — CLAY GRID
+   ========================================================= */
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 18px 0 22px 0;
+}
+
+.clay-activity {
+  background: linear-gradient(155deg, #ffffff 0%, #faf0e8 50%, #f8ebe2 100%);
+  border: 2.5px solid rgba(255, 255, 255, 0.92);
+  border-radius: var(--r-lg);
+  padding: 18px 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow:
+    7px 7px 16px rgba(140, 90, 60, 0.16),
+    -5px -5px 12px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 5px rgba(150, 100, 70, 0.08);
+}
+
+.clay-activity:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    9px 9px 20px rgba(150, 85, 55, 0.22),
+    -5px -5px 14px rgba(255, 255, 255, 0.92),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(150, 95, 65, 0.1);
+}
+
+.clay-activity.selected {
+  background: linear-gradient(155deg, #fae8e0 0%, #f0d0c0 100%);
+  border-color: var(--primary-light);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    8px 8px 20px rgba(170, 55, 75, 0.22),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 6px rgba(160, 55, 75, 0.1);
+}
+
+.activity-icon {
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+  transition: transform 0.25s ease;
+}
+
+.clay-activity:hover .activity-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.activity-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+}
+
+.activity-desc {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.activity-selected-banner {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 10px auto 18px auto;
+  display: inline-block;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* =========================================================
+   CELEBRATION — VIBRANT CLAY
+   ========================================================= */
+
+.clay-badge {
+  background: linear-gradient(155deg, #f5d8cc 0%, #e8c0b0 50%, #e0d0c4 100%);
+  border: 2.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--r-lg);
+  padding: 14px 22px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin: 14px 0 20px 0;
+  display: inline-block;
+  box-shadow:
+    7px 7px 18px rgba(140, 80, 55, 0.22),
+    -5px -5px 12px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(140, 80, 55, 0.1);
+  animation: celebrationPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes celebrationPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.celebration-emoji-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 4px 0 2px 0;
+}
+
+.celebration-emoji-row span {
+  font-size: 1.9rem;
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(200, 90, 120, 0.28));
+  animation: emojiBob 2.6s ease-in-out infinite;
+}
+
+.celebration-emoji-row span:nth-child(2) { animation-delay: 0.3s; font-size: 2.5rem; }
+.celebration-emoji-row span:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes emojiBob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 25;
+}
+
+/* Celebration glow ring */
+.celebration-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(200, 100, 80, 0.06) 0%, transparent 55%);
+  pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* =========================================================
+   INTRO — CLEAN TEXT REVEAL
+   ========================================================= */
+
+.intro-card {
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 440px;
+}
+
+
+
+.intro-reveal {
+  font-family: var(--font-main);
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.intro-line-1 {
+  font-size: 2.1rem;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+
+.intro-line-2 {
+  font-size: 2.4rem;
+  color: var(--text-dark);
+  letter-spacing: -0.4px;
+  text-shadow: 1px 1px 0 #ffffff, 0 2px 8px rgba(160, 80, 60, 0.1);
+  margin-bottom: 2px;
+}
+
+.intro-line-3 {
+  font-size: 1.75rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin-top: 4px;
+  text-shadow: 1px 1px 0 #ffffff;
+}
+
+/* Ensure the handwritten romantic font takes precedence over the base heading font */
+.intro-line-3.title-romantic,
+.card-title.title-romantic {
+  font-family: var(--font-romantic);
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.9), 0 2px 12px rgba(200, 90, 120, 0.22);
+}
+
+/* =========================================================
+   INTRO ANIMATION — HORIZONTAL SCROLL TEXT
+   ========================================================= */
+
+.Horizontal {
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  position: relative;
+  background: var(--bg-gradient);
+}
+
+/* Allow ScrollTrigger pin-spacer to extend document height */
+#root:has(.Horizontal) {
+  display: block;
+  min-height: auto;
+  height: auto;
+}
+
+#root:has(.Horizontal) > .Horizontal {
+  width: 100%;
+}
+
+.Horizontal .container {
+  width: 100%;
+}
+
+.Horizontal__text {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  gap: 4vw;
+  padding-left: 100vw;
+}
+
+.heading-xl {
+  font-family: var(--font-main);
+  font-size: clamp(2rem, 10vw, 12rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text-dark);
+  will-change: transform;
+}
+
+.scroll-hint {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-hint-text {
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.scroll-hint-arrow {
+  font-size: 1.6rem;
+  color: var(--primary);
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.h-char {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  color: var(--primary);
+}
+
+.h-char:nth-child(3n) {
+  color: var(--text-dark);
+}
+
+.h-char:nth-child(5n) {
+  color: var(--primary-dark);
+}
+
+.intro-teddy-wrap { margin: 4px 0 14px 0; }
+.intro-btn-wrap { margin-top: 2px; }
+
+/* =========================================================
+   PARTICLE EXPLOSION ON CLICK
+   ========================================================= */
+
+.pop-emitter {
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  z-index: 5000;
+  pointer-events: none;
+}
+
+.pop-dot {
+  background: linear-gradient(135deg, #e07890 0%, #c84060 60%, #a83050 100%);
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* =========================================================
+   FLAIR CURSOR TRAIL
+   ========================================================= */
+
+.flair-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.flair-wrap .flair {
+  position: fixed;
+  opacity: 0;
+  width: 50px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =========================================================
+   MOBILE-FIRST RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .app-container { padding: 16px 12px; }
+
+  .clay-card {
+    padding: 28px 18px;
+    border-radius: var(--r-lg);
+  }
+
+  .intro-line-1 { font-size: 1.75rem; }
+  .intro-line-2 { font-size: 1.95rem; }
+  .intro-line-3 { font-size: 1.45rem; }
+
+  .card-title { font-size: 1.65rem; }
+  .card-subtitle { font-size: 0.95rem; margin-bottom: 16px; }
+  .title-emoji { font-size: 2.5rem; margin-bottom: 8px; }
+
+  .btn { font-size: 0.98rem; padding: 13px 24px; }
+
+  .activities-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .clay-activity {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .activity-icon { font-size: 1.9rem; margin-bottom: 0; }
+  .activity-desc { font-size: 0.78rem; }
+
+  .letter-paper { padding: 20px 16px; }
+  .letter-header { font-size: 1.5rem; }
+  .letter-body { font-size: 1.25rem; }
+  .letter-signature { font-size: 1.35rem; }
+
+  .teddy-svg { width: 100px; height: 100px; }
+
+  .btn-group { gap: 12px; }
+
+  .social-btns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .social-btns .btn { width: 100%; min-width: 0; }
+}
+
+@media (max-width: 380px) {
+  .clay-card { padding: 24px 14px; }
+  .intro-line-2 { font-size: 1.7rem; }
+  .card-title { font-size: 1.45rem; }
+  .btn { font-size: 0.92rem; padding: 12px 20px; }
+}
